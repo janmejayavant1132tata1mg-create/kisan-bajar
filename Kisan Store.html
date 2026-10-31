@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kisan Store – Kheti ka Poora Saman</title>
+<style>
+:root{--bg:#f4f6ef;--card:#fff;--text:#1d2b1a;--muted:#5d6b58;--green:#2e7d32;--dark:#14351a;--accent:#f9a825;--line:#dfe5d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101710;--card:#192319;--text:#e8efe3;--muted:#9fb09a;--green:#5fbf66;--dark:#0b1e0e;--line:#2b3a2b}}
+:root[data-theme="dark"]{--bg:#101710;--card:#192319;--text:#e8efe3;--muted:#9fb09a;--green:#5fbf66;--dark:#0b1e0e;--line:#2b3a2b}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text)}
+header{background:var(--dark);color:#fff;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.top{display:flex;gap:12px;align-items:center;padding:10px 16px;max-width:1200px;margin:auto;flex-wrap:wrap}
+.logo{font-size:1.4rem;font-weight:800;white-space:nowrap}.logo span{color:var(--accent)}
+.search{flex:1;min-width:200px;display:flex}
+.search input{flex:1;padding:10px 12px;border:0;border-radius:6px 0 0 6px;font-size:1rem;min-width:0}
+.search button{background:var(--accent);border:0;padding:0 16px;border-radius:0 6px 6px 0;font-weight:700;cursor:pointer;color:#222}
+.cartbtn{background:none;border:1px solid #ffffff55;color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:1rem}
+nav{background:#1f4d27;overflow-x:auto;white-space:nowrap}
+nav .in{max-width:1200px;margin:auto;padding:0 12px}
+nav button{background:none;border:0;color:#fff;padding:10px 12px;cursor:pointer;font-size:.95rem;border-bottom:3px solid transparent}
+nav button.on{border-color:var(--accent);font-weight:700}
+.hero{background:linear-gradient(120deg,#2e7d32,#9ccc65);color:#fff;padding:36px 16px}
+.hero div{max-width:1200px;margin:auto}
+.hero h1{margin:0 0 8px;font-size:clamp(1.5rem,4vw,2.4rem)}.hero p{margin:0 0 14px;opacity:.95}
+.hero a{background:var(--accent);color:#222;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:700;display:inline-block}
+.perks{max-width:1200px;margin:16px auto 0;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.perks div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:.9rem}
+main{max-width:1200px;margin:auto;padding:16px}
+h2{margin:8px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.img{height:120px;border-radius:8px;display:grid;place-items:center;font-size:3.6rem;background:#e8f1dc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .img{background:#243324}}
+.card h3{margin:0;font-size:1rem}.cat{font-size:.78rem;color:var(--muted)}
+.rate{color:var(--accent);font-size:.85rem}
+.price{font-size:1.2rem;font-weight:800}.price s{font-size:.85rem;color:var(--muted);font-weight:400;margin-left:6px}.off{color:var(--green);font-size:.85rem;font-weight:600;margin-left:6px}
+.add{margin-top:auto;background:var(--accent);border:0;padding:9px;border-radius:6px;font-weight:700;cursor:pointer;color:#222}
+.empty{color:var(--muted);padding:30px;text-align:center}
+#drawer{position:fixed;top:0;right:0;height:100%;width:min(380px,100%);background:var(--card);box-shadow:-4px 0 20px #0005;transform:translateX(100%);transition:.25s;z-index:10;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+#drawer.open{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.dh button{background:none;border:0;font-size:1.4rem;cursor:pointer;color:var(--text)}
+#items{flex:1;overflow:auto;padding:8px 16px}
+.row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.row .e{font-size:1.8rem}.row .n{flex:1;font-size:.92rem}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer}
+.qty span{display:inline-block;min-width:22px;text-align:center}
+.df{padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+.df .t{display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem;margin-bottom:10px}
+.df button{width:100%;background:var(--green);color:#fff;border:0;padding:12px;border-radius:6px;font-weight:700;cursor:pointer;font-size:1rem}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 18px;border-radius:20px;opacity:0;transition:.3s;pointer-events:none;z-index:20;text-align:center}
+#toast.show{opacity:1}
+footer{background:var(--dark);color:#cfe0c8;text-align:center;padding:22px 16px;margin-top:30px;font-size:.9rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="logo">🌾 Kisan <span>Store</span></div>
+    <div class="search"><input id="q" placeholder="Beej, khad, dawai, aujar khojein..." aria-label="Search"><button onclick="render()">Khojein</button></div>
+    <button class="cartbtn" onclick="toggleCart(true)">🛒 Cart (<span id="cnt">0</span>)</button>
+  </div>
+  <nav><div class="in" id="nav"></div></nav>
+</header>
+
+<section class="hero"><div>
+  <h1>Kisan ka apna Store 🚜</h1>
+  <p>Beej, khad, kitnashak, sinchai aur kheti ke aujar – sab ek jagah, sahi daam par.</p>
+  <a href="#shop">Abhi kharidein</a>
+</div></section>
+
+<div class="perks">
+  <div>🚚 Ghar tak delivery</div><div>💵 Cash on Delivery</div><div>✅ Asli &amp; certified saman</div><div>📞 Kisan helpline</div>
+</div>
+
+<main id="shop">
+  <h2 id="title">Saare products</h2>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>© 2026 Kisan Store · Kisan ki mehnat, hamara bharosa 🌱</footer>
+
+<aside id="drawer" aria-label="Cart">
+  <div class="dh"><b>Aapka Cart</b><button onclick="toggleCart(false)" aria-label="Close">✕</button></div>
+  <div id="items"></div>
+  <div class="df"><div class="t"><span>Total</span><span id="tot">₹0</span></div><button onclick="checkout()">Order karein</button></div>
+</aside>
+<div id="toast"></div>
+
+<script>
+const P=[
+["Gehu Beej HD-2967 (10 kg)","Beej","🌾",650,780,4.5],
+["Dhan Beej Pusa Basmati (5 kg)","Beej","🍚",480,560,4.4],
+["Sarson Beej Hybrid (1 kg)","Beej","🌼",320,380,4.3],
+["Hybrid Tamatar Beej (50 g)","Beej","🍅",420,500,4.6],
+["Urea Khad (45 kg)","Khad","🧪",266,300,4.5],
+["DAP Khad (50 kg)","Khad","⚗️",1350,1450,4.4],
+["Vermicompost Jaivik Khad (5 kg)","Khad","🪱",250,320,4.7],
+["NPK 19:19:19 Ghulansheel (1 kg)","Khad","💧",290,350,4.3],
+["Neem Tel Kitnashak (1 L)","Kitnashak","🌿",380,450,4.5],
+["Jaivik Keet Niyantran (500 ml)","Kitnashak","🐛",520,600,4.2],
+["Fungicide Powder (250 g)","Kitnashak","🍄",340,400,4.1],
+["Kudal (Spade) Lohe ki","Aujar","⛏️",320,399,4.4],
+["Daranti / Hasiya","Aujar","🔪",120,160,4.5],
+["Battery Hand Sprayer 16 L","Aujar","🧴",2400,3200,4.4],
+["Drip Sinchai Kit (1 acre)","Sinchai","🚿",5200,6500,4.6],
+["Water Pump Motor 1 HP","Sinchai","⚙️",4800,5900,4.3],
+["Mini Power Tiller","Machine","🚜",38500,45000,4.2],
+["Gumboot (Rubber Joote)","Suraksha","🥾",450,599,4.3],
+["Kheti Dastane (Gloves)","Suraksha","🧤",90,140,4.1],
+["Tarpaulin Tirpal 12x18 ft","Anya","⛺",1100,1500,4.4]
+].map((a,i)=>({id:i,n:a[0],c:a[1],e:a[2],p:a[3],m:a[4],r:a[5]}));
+const cats=["Sab","Beej","Khad","Kitnashak","Aujar","Sinchai","Machine","Suraksha","Anya"];
+let cat="Sab",cart={};
+const $=id=>document.getElementById(id);
+const inr=n=>"₹"+n.toLocaleString("en-IN");
+function nav(){$("nav").innerHTML=cats.map(c=>`<button class="${c==cat?"on":""}" onclick="cat='${c}';nav();render()">${c}</button>`).join("")}
+function render(){
+  const q=$("q").value.toLowerCase().trim();
+  const L=P.filter(p=>(cat=="Sab"||p.c==cat)&&(!q||(p.n+p.c).toLowerCase().includes(q)));
+  $("title").textContent=(cat=="Sab"?"Saare products":cat)+" ("+L.length+")";
+  $("grid").innerHTML=L.length?L.map(p=>`<div class="card"><div class="img">${p.e}</div><span class="cat">${p.c}</span><h3>${p.n}</h3><div class="rate">★ ${p.r}</div><div><span class="price">${inr(p.p)}</span><s>${inr(p.m)}</s><span class="off">${Math.round((1-p.p/p.m)*100)}% off</span></div><button class="add" onclick="add(${p.id})">Cart me daalein</button></div>`).join(""):`<div class="empty">Koi product nahi mila 😕</div>`;
+}
+function toast(t){const x=$("toast");x.textContent=t;x.classList.add("show");clearTimeout(x.t);x.t=setTimeout(()=>x.classList.remove("show"),1800)}
+function add(id){cart[id]=(cart[id]||0)+1;upd();toast(P[id].n+" cart me add hua ✅")}
+function chg(id,d){cart[id]+=d;if(cart[id]<=0)delete cart[id];upd()}
+function upd(){
+  const ids=Object.keys(cart);let t=0,c=0;
+  $("items").innerHTML=ids.length?ids.map(i=>{const p=P[i],q=cart[i];t+=p.p*q;c+=q;return `<div class="row"><div class="e">${p.e}</div><div class="n">${p.n}<br><b>${inr(p.p)}</b></div><div class="qty"><button onclick="chg(${i},-1)">−</button><span>${q}</span><button onclick="chg(${i},1)">+</button></div></div>`}).join(""):`<div class="empty">Cart khali hai 🛒</div>`;
+  $("tot").textContent=inr(t);$("cnt").textContent=c;
+}
+function toggleCart(o){$("drawer").classList.toggle("open",o)}
+function checkout(){if(!Object.keys(cart).length){toast("Pehle kuch cart me daalein");return}
+  cart={};upd();toggleCart(false);toast("Dhanyavaad! Aapka order lag gaya 🙏")}
+$("q").addEventListener("keydown",e=>{if(e.key=="Enter")render()});
+nav();render();upd();
+</script>
+</body>
+</html>
